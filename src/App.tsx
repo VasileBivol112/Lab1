@@ -6,6 +6,9 @@ import { Layout, Menu, Breadcrumb, MenuProps, theme, Row, Col } from 'antd';
 import { Header, Content, Footer } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import Card from 'antd/es/card/Card';
+import Car from "./car";
+import Electric from "./electric";
+
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -32,6 +35,36 @@ const items: MenuItem[] = [
   getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Files', '9', <FileOutlined />),
 ];
+
+const carCards: Car[] = [
+  {
+    caiputere: 234,
+    culoare: "albastru",
+    caroserie: "tractiune fata",
+    motor: "disel",
+    cuteiedeviteze: 6,
+    incalzireautonoma: true,
+    image: "/gti.jpg"
+  },
+  {
+    caiputere: 210,
+    culoare: "alb/negru",
+    caroserie: "tractiune spate",
+    motor: "benzina",
+    cuteiedeviteze: 5,
+    incalzireautonoma: true,
+    image: "/ae86.jpg"
+  },  
+  {
+    caiputere: 345,
+    culoare: "alb",
+    caroserie: "tractiune 4x4",
+    motor: "benzina",
+    cuteiedeviteze: 7,
+    incalzireautonoma: false,
+    image: "/octavia.webp"
+  }
+]
 
 function App() {
   const [collapsed, setCollapsed] = useState(false);
@@ -122,13 +155,29 @@ function App() {
               </Row>
             </form>
 
-            {cards.map(card => (
-              <Card title={card.title} style={{ width: 300, marginTop: "20px" }}>
+            {cards.map((card, index) => (
+              <Card key={index} title={card.title} style={{ width: 300, marginTop: "20px" }}>
                 <p>Nume: {card.name}</p>
                 <p>Email: {card.email}</p>
                 <p>Password: {card.password}</p>
               </Card> 
             ))}
+
+            <Row justify="center" gutter={16} >
+              {carCards.map((car, index) => (
+                <Col key={index} span={6}>
+                   <Card title={`Masina nr. ${index+1}`} style={{ marginTop: "60px" }}>
+                    <img src={car.image} style={{width: 300}} />
+                    <p>Cai putere: {car.caiputere}</p>
+                    <p>Caroserie: {car.caroserie}</p>
+                    <p>Culoare: {car.culoare}</p>
+                    <p>Cutie de viteze: {car.cuteiedeviteze}</p>
+                    <p>Incalzire autonoma: {car.incalzireautonoma}</p>
+                    <p>Motor: {car.motor}</p>
+                  </Card> 
+                </Col>
+              ))}
+            </Row>
           </div>
         </Content>
       </Layout>
